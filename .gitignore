@@ -1,0 +1,27 @@
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Claude Code local settings (can capture command parameters, including secrets)
+.claude/settings.local.json
+
+# Dependencies / build output (not used today, here for later)
+node_modules/
+dist/
+build/
+.cache/

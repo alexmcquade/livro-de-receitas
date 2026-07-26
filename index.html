@@ -1,0 +1,992 @@
+<title>Livro de Receitas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #FAFAF6;
+    --card: #FFFFFF;
+    --ink: #202520;
+    --muted: #6B7065;
+    --accent: #3F6B3C;
+    --accent-soft: #EDF2EA;
+    --line: #E4E5DC;
+    --note-bg: #F4F1E4;
+    --note-edge: #C9BE8F;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151814;
+      --card: #1D211C;
+      --ink: #E8E9E2;
+      --muted: #9BA093;
+      --accent: #8FB985;
+      --accent-soft: #232B21;
+      --line: #2C312A;
+      --note-bg: #24231B;
+      --note-edge: #6B6444;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #FAFAF6; --card: #FFFFFF; --ink: #202520; --muted: #6B7065;
+    --accent: #3F6B3C; --accent-soft: #EDF2EA; --line: #E4E5DC;
+    --note-bg: #F4F1E4; --note-edge: #C9BE8F;
+  }
+  :root[data-theme="dark"] {
+    --bg: #151814; --card: #1D211C; --ink: #E8E9E2; --muted: #9BA093;
+    --accent: #8FB985; --accent-soft: #232B21; --line: #2C312A;
+    --note-bg: #24231B; --note-edge: #6B6444;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 20px 18px 56px; }
+
+  /* ---------- header ---------- */
+  .head-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 2rem;
+    margin: 6px 0 2px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  header p {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .lang {
+    display: flex;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+  .lang button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 8px 13px;
+    min-height: 38px;
+    cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ---------- list view ---------- */
+  .search {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+  }
+  .search::placeholder { color: var(--muted); }
+  .search:focus { border-color: var(--accent); }
+
+  .chips {
+    display: flex;
+    gap: 8px;
+    margin: 14px 0 18px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chip {
+    flex: 0 0 auto;
+    padding: 7px 14px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+  .chip:focus-visible, .search:focus-visible, a:focus-visible,
+  .ing li:focus-visible, .lang button:focus-visible, .copy:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 12px; }
+  .card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 1.35rem;
+    margin: 0 0 6px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .card .alt-title {
+    margin: -2px 0 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  .card .meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .meta span { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .tag {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+
+  /* ---------- recipe view ---------- */
+  .back {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    padding: 6px 0;
+  }
+  .recipe h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+  .recipe .meta { margin-bottom: 14px; }
+
+  .scale {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    overflow: hidden;
+    margin: 0 0 14px;
+  }
+  .scale button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    min-height: 38px;
+    cursor: pointer;
+  }
+  .scale button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .source { margin: 0 0 18px; font-size: 0.9rem; }
+  .source a { color: var(--accent); }
+
+  .pt-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 22px;
+    font-size: 0.95rem;
+  }
+  .pt-name .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-basis: 100%;
+  }
+  .pt-name .name { font-style: italic; }
+  .copy {
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 4px 12px;
+    min-height: 30px;
+    cursor: pointer;
+  }
+
+  .recipe h2 {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 28px 0 12px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+
+  .ing { list-style: none; margin: 0; padding: 0; }
+  .ing li {
+    padding: 10px 8px 10px 34px;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .ing li::before {
+    content: "";
+    position: absolute;
+    left: 6px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--muted);
+    border-radius: 5px;
+  }
+  .ing li.sub {
+    cursor: default;
+    padding-left: 8px;
+    margin-top: 10px;
+    min-height: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ing li.sub::before { display: none; }
+  .ing li.done { color: var(--muted); text-decoration: line-through; }
+  .ing li.done::before {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .ing li.done::after {
+    content: "";
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-62%) rotate(45deg);
+    width: 5px; height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+  }
+
+  .steps { margin: 0; padding: 0 0 0 6px; counter-reset: passo; list-style: none; }
+  .steps li {
+    counter-increment: passo;
+    position: relative;
+    padding: 0 0 18px 42px;
+  }
+  .steps li::before {
+    content: counter(passo);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 27px; height: 27px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .notes {
+    background: var(--note-bg);
+    border-left: 3px solid var(--note-edge);
+    border-radius: 0 10px 10px 0;
+    padding: 4px 16px;
+    margin-top: 8px;
+  }
+  .notes ul { padding-left: 18px; margin: 12px 0; }
+  .notes li { margin-bottom: 8px; }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip, .card, .lang button, .copy { transition: border-color 120ms ease, background 120ms ease; }
+    .card:active { border-color: var(--accent); }
+  }
+</style>
+
+<div class="wrap">
+  <div class="head-row">
+    <header>
+      <h1>Livro de Receitas</h1>
+      <p id="subtitle">da nossa cozinha</p>
+    </header>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button id="lang-pt" aria-pressed="true">PT</button>
+      <button id="lang-en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <div id="view-list">
+    <input class="search" id="search" type="search"
+           placeholder="Buscar receita ou ingrediente…" autocomplete="off">
+    <div class="chips" id="chips"></div>
+    <div class="cards" id="cards"></div>
+    <p class="empty hidden" id="empty">Nenhuma receita encontrada.</p>
+    <footer id="foot-list"></footer>
+  </div>
+
+  <div id="view-recipe" class="hidden">
+    <a class="back" id="back" href="#">← Todas as receitas</a>
+    <article class="recipe" id="recipe"></article>
+  </div>
+</div>
+
+<script>
+/* Measurements are identical in both languages (metric, practical amounts).
+   Only the words change. */
+const RECIPES = [
+  {
+    id: "frango-gergelim",
+    tempo: "50min",
+    fonte: "https://www.spendwithpennies.com/sesame-chicken/",
+    pt: {
+      titulo: "Frango com Gergelim",
+      categoria: "Carnes",
+      porcoes: "4 porções",
+      ingredientes: [
+        "Para o frango:",
+        "500 g de peito de frango sem pele e sem osso, cortado em cubos",
+        "1 ovo",
+        "3 colheres de sopa de amido de milho (maisena)",
+        "2 colheres de sopa de shoyu (molho de soja)",
+        "2 colheres de chá de óleo vegetal (para fritar)",
+        "Cebolinha picada para finalizar (nas lojas: \"cebolinho\")",
+        "Para o molho:",
+        "180 ml de caldo de galinha",
+        "50 g de açúcar mascavado (ou 4 colheres de sopa de mel)",
+        "2 colheres de sopa de amido de milho",
+        "3 colheres de sopa de shoyu",
+        "2 colheres de chá de óleo de gergelim torrado (nas lojas: \"óleo de sésamo torrado\")",
+        "1 colher de chá de gengibre fresco picado",
+        "1 dente de alho picado",
+        "2 colheres de sopa de gergelim (nas lojas: \"sementes de sésamo\")"
+      ],
+      preparo: [
+        "Toste o gergelim numa frigideira seca em fogo médio até dourar de leve e ficar cheiroso. Reserve.",
+        "Misture o frango com o ovo, 3 colheres de sopa de amido de milho e 2 colheres de sopa de shoyu. Leve à geladeira por 15 minutos.",
+        "Enquanto isso, misture numa tigela pequena o caldo, o açúcar mascavo, 2 colheres de sopa de amido de milho, 3 colheres de sopa de shoyu, o óleo de gergelim, o gengibre e o alho.",
+        "Aqueça o óleo vegetal numa frigideira grande (26 cm) em fogo médio-alto. Frite metade do frango, mexendo, até dourar e quase cozinhar por completo (uns 5 minutos). Transfira para uma tigela e repita com o resto.",
+        "Misture o molho de novo (o amido assenta no fundo), despeje na frigideira e volte com todo o frango. Cozinhe em fogo médio-alto, mexendo, até o molho engrossar (3 a 4 minutos). Junte o gergelim torrado.",
+        "Finalize com a cebolinha e sirva com arroz branco."
+      ],
+      notas: [
+        "O óleo de gergelim torrado é o escuro — é ele que dá o sabor característico do prato.",
+        "Fritar o frango em duas levas é importante: com a frigideira cheia demais, ele cozinha no vapor em vez de dourar.",
+        "Sobras duram 3 a 4 dias na geladeira em pote fechado. Reaqueça na frigideira ou no micro-ondas."
+      ],
+      dobro: {
+        porcoes: "8 porções",
+        rotulo: "8 porções",
+        ingredientes: [
+          "Para o frango:",
+          "1 kg de peito de frango sem pele e sem osso, cortado em cubos",
+          "2 ovos",
+          "6 colheres de sopa de amido de milho (maisena)",
+          "4 colheres de sopa de shoyu (molho de soja)",
+          "1 colher de sopa de óleo vegetal",
+          "Cebolinha picada para finalizar (nas lojas: \"cebolinho\")",
+          "Para o molho:",
+          "360 ml de caldo de galinha",
+          "100 g de açúcar mascavado (ou 8 colheres de sopa de mel)",
+          "4 colheres de sopa de amido de milho",
+          "6 colheres de sopa de shoyu",
+          "1 colher de sopa de óleo de gergelim torrado (nas lojas: \"óleo de sésamo torrado\")",
+          "2 colheres de chá de gengibre fresco picado",
+          "2 dentes de alho picados",
+          "4 colheres de sopa de gergelim (nas lojas: \"sementes de sésamo\")"
+        ],
+        preparo: [
+          "Preaqueça o forno a 220°C e forre duas assadeiras grandes com papel vegetal.",
+          "Toste o gergelim numa frigideira seca em fogo médio até dourar de leve e ficar cheiroso. Reserve.",
+          "Misture o frango com os ovos, 6 colheres de sopa de amido de milho e 4 colheres de sopa de shoyu. Leve à geladeira por 15 minutos.",
+          "Espalhe o frango nas duas assadeiras, bem separado, numa camada só. Regue com o óleo vegetal.",
+          "Asse por 20 a 25 minutos, virando os pedaços e trocando as assadeiras de posição na metade do tempo, até dourarem nas pontas. Aqui o frango precisa sair do forno já cozido por completo: corte o pedaço maior ao meio para conferir que não está rosado por dentro (com termômetro: 74°C).",
+          "Enquanto o frango assa, misture numa panela larga o caldo, o açúcar mascavado, 4 colheres de sopa de amido de milho, 6 colheres de sopa de shoyu, o óleo de gergelim, o gengibre e o alho. Leve ao fogo médio, mexendo sempre, até engrossar (3 a 4 minutos).",
+          "Junte o frango assado ao molho e misture bem para cobrir tudo. Acrescente o gergelim torrado.",
+          "Finalize com a cebolinha e sirva com arroz branco."
+        ],
+        notas: [
+          "Em dose dupla o frango vai ao forno em vez da frigideira: na frigideira seriam 4 levas seguidas, o que leva uma eternidade. No forno é tudo de uma vez, e o molho fica pronto no mesmo tempo.",
+          "Atenção: na versão pequena o frango termina de cozinhar no molho fervendo. Nesta, o molho só envolve o frango no final — por isso ele tem que sair do forno já cozido (74°C, sem nada rosado por dentro).",
+          "O forno bem quente (220°C) e o frango espalhado sem se tocar são o que garantem que ele doure em vez de cozinhar no vapor. Assadeira lotada cozinha no vapor e demora mais — se precisar, use três assadeiras ou asse em duas levas.",
+          "O óleo de gergelim torrado é o escuro — é ele que dá o sabor característico do prato.",
+          "Sobras duram 3 a 4 dias na geladeira em pote fechado. Reaqueça na frigideira ou no micro-ondas.",
+          "O molho engrossa na geladeira: na hora de reaquecer, um respingo de água solta de novo."
+        ]
+      }
+    },
+    en: {
+      titulo: "Sesame Chicken",
+      categoria: "Meat",
+      porcoes: "Serves 4",
+      ingredientes: [
+        "For the chicken:",
+        "500 g boneless skinless chicken breast, cut into bite-size pieces",
+        "1 egg",
+        "3 tbsp cornstarch",
+        "2 tbsp soy sauce",
+        "2 tsp vegetable oil (for frying)",
+        "Chopped green onions for garnish",
+        "For the sauce:",
+        "180 ml chicken broth",
+        "50 g brown sugar (or 4 tbsp honey)",
+        "2 tbsp cornstarch",
+        "3 tbsp soy sauce",
+        "2 tsp toasted sesame oil",
+        "1 tsp minced fresh ginger",
+        "1 garlic clove, minced",
+        "2 tbsp sesame seeds"
+      ],
+      preparo: [
+        "Toast the sesame seeds in a dry skillet over medium heat until lightly golden and fragrant. Set aside.",
+        "Toss the chicken with the egg, 3 tbsp cornstarch, and 2 tbsp soy sauce. Refrigerate for 15 minutes.",
+        "Meanwhile, whisk together the broth, brown sugar, 2 tbsp cornstarch, 3 tbsp soy sauce, sesame oil, ginger, and garlic in a small bowl.",
+        "Heat the vegetable oil in a large skillet (26 cm) over medium-high heat. Stir-fry half the chicken until browned and nearly cooked through (about 5 minutes). Transfer to a bowl and repeat with the rest.",
+        "Whisk the sauce again (the cornstarch settles), pour it into the skillet, and return all the chicken. Cook over medium-high heat, stirring, until the sauce thickens (3 to 4 minutes). Stir in the toasted sesame seeds.",
+        "Garnish with green onions and serve with white rice."
+      ],
+      notas: [
+        "Toasted sesame oil is the dark one — it's what gives the dish its signature flavor.",
+        "Frying the chicken in two batches matters: an overcrowded pan steams instead of browning.",
+        "Leftovers keep 3–4 days in the fridge in an airtight container. Reheat in a skillet or the microwave."
+      ],
+      dobro: {
+        porcoes: "Serves 8",
+        rotulo: "Serves 8",
+        ingredientes: [
+          "For the chicken:",
+          "1 kg boneless skinless chicken breast, cut into bite-size pieces",
+          "2 eggs",
+          "6 tbsp cornstarch",
+          "4 tbsp soy sauce",
+          "1 tbsp vegetable oil",
+          "Chopped green onions for garnish",
+          "For the sauce:",
+          "360 ml chicken broth",
+          "100 g brown sugar (or 8 tbsp honey)",
+          "4 tbsp cornstarch",
+          "6 tbsp soy sauce",
+          "1 tbsp toasted sesame oil",
+          "2 tsp minced fresh ginger",
+          "2 garlic cloves, minced",
+          "4 tbsp sesame seeds"
+        ],
+        preparo: [
+          "Preheat the oven to 220°C and line two large sheet pans with parchment paper.",
+          "Toast the sesame seeds in a dry skillet over medium heat until lightly golden and fragrant. Set aside.",
+          "Toss the chicken with the eggs, 6 tbsp cornstarch, and 4 tbsp soy sauce. Refrigerate for 15 minutes.",
+          "Spread the chicken across both pans, well separated, in a single layer. Drizzle with the vegetable oil.",
+          "Bake for 20 to 25 minutes, flipping the pieces and swapping the pans' positions halfway through, until golden at the edges. The chicken needs to come out of the oven fully cooked: cut the largest piece in half to check there's no pink inside (with a thermometer: 74°C).",
+          "While the chicken bakes, combine the broth, brown sugar, 4 tbsp cornstarch, 6 tbsp soy sauce, sesame oil, ginger, and garlic in a wide pot. Cook over medium heat, stirring constantly, until thickened (3 to 4 minutes).",
+          "Add the baked chicken to the sauce and toss to coat. Stir in the toasted sesame seeds.",
+          "Garnish with green onions and serve with white rice."
+        ],
+        notas: [
+          "Doubled, the chicken goes in the oven instead of the skillet: on the stove it would mean 4 back-to-back batches, which takes forever. In the oven it all cooks at once, and the sauce is ready in the same window.",
+          "Note: in the small version the chicken finishes cooking in the simmering sauce. Here the sauce only coats it at the end — so it has to leave the oven fully cooked (74°C, no pink inside).",
+          "A hot oven (220°C) and pieces that aren't touching are what make it brown instead of steam. A crowded pan steams and takes longer — use three pans or bake in two rounds if needed.",
+          "Toasted sesame oil is the dark one — it's what gives the dish its signature flavor.",
+          "Leftovers keep 3–4 days in the fridge in an airtight container. Reheat in a skillet or the microwave.",
+          "The sauce thickens in the fridge: a splash of water loosens it when reheating."
+        ]
+      }
+    }
+  },
+  {
+    id: "massa-cremosa-pesto-frango",
+    tempo: "25min",
+    fonte: "https://www.budgetbytes.com/one-pot-creamy-pesto-chicken-pasta/",
+    pt: {
+      titulo: "Massa Cremosa de Pesto com Frango",
+      categoria: "Massas",
+      porcoes: "4 porções",
+      ingredientes: [
+        "500 g de peito de frango sem pele e sem osso",
+        "30 g de manteiga",
+        "2 dentes de alho picados",
+        "250 g de massa penne (meio pacote)",
+        "350 ml de caldo de galinha",
+        "240 ml de leite",
+        "100 g de queijo creme (nas lojas: \"queijo creme\" tipo Philadelphia)",
+        "80 g de pesto de manjericão (umas 4 colheres de sopa; nas lojas: \"molho pesto\")",
+        "30 g de queijo parmesão ralado",
+        "Pimenta-do-reino moída na hora",
+        "1 pitada de pimenta calabresa (nas lojas: \"piri-piri em flocos\" ou malagueta seca)",
+        "Opcional:",
+        "90 g de espinafre fresco (nas lojas: \"espinafres\")",
+        "30 g de tomate seco em tiras"
+      ],
+      preparo: [
+        "Corte o frango em cubos de uns 2,5 cm.",
+        "Derreta a manteiga numa panela larga e funda em fogo médio. Junte o frango e cozinhe até dourar de leve. Acrescente o alho e refogue mais 1 minuto.",
+        "Junte a massa crua e o caldo de galinha. Mexa raspando o fundo da panela para soltar o que grudou. Tampe, aumente o fogo e deixe levantar fervura.",
+        "Assim que ferver, dê uma mexida na massa, abaixe o fogo e cozinhe tampado por uns 8 minutos, até a massa ficar al dente e quase todo o caldo ser absorvido. Mexa a cada 2 minutos, tampando de novo em seguida.",
+        "Junte o leite, o queijo creme em pedaços e o pesto. Mexa em fogo médio até o queijo creme derreter. Acrescente o parmesão e misture.",
+        "Se for usar, junte agora o espinafre e o tomate seco, mexendo até o espinafre murchar. Tire do fogo.",
+        "Finalize com pimenta-do-reino moída na hora e a pimenta calabresa. Sirva na hora."
+      ],
+      notas: [
+        "O frango cozinha junto com a massa no caldo — ao final não pode sobrar nada rosado por dentro (com termômetro: 74°C).",
+        "Mexer a cada 2 minutos não é frescura: a massa cozinha em pouco líquido e gruda no fundo se ficar parada.",
+        "O queijo creme derrete melhor cortado em pedaços e fora da geladeira há uns minutos.",
+        "Se a massa ficar seca demais antes de cozinhar, junte um pouco mais de caldo quente.",
+        "Esta massa fica melhor no dia. Reaquecendo, junte um respingo de leite para soltar o molho."
+      ],
+      dobro: {
+        porcoes: "8 porções",
+        rotulo: "8 porções",
+        ingredientes: [
+          "1 kg de peito de frango sem pele e sem osso",
+          "60 g de manteiga",
+          "4 dentes de alho picados",
+          "500 g de massa penne (1 pacote)",
+          "700 ml de caldo de galinha",
+          "480 ml de leite",
+          "200 g de queijo creme (1 embalagem)",
+          "160 g de pesto de manjericão (nas lojas: \"molho pesto\")",
+          "60 g de queijo parmesão ralado",
+          "Pimenta-do-reino moída na hora",
+          "2 pitadas de pimenta calabresa (nas lojas: \"piri-piri em flocos\")",
+          "Opcional:",
+          "180 g de espinafre fresco (nas lojas: \"espinafres\")",
+          "60 g de tomate seco em tiras"
+        ],
+        preparo: [
+          "Corte o frango em cubos de uns 2,5 cm. Use a panela mais larga e funda que tiver (uns 28–30 cm, 5 litros) — com o dobro de massa, panela pequena não dá conta.",
+          "Derreta a manteiga em fogo médio e doure o frango. Se a panela ficar lotada, faça em duas levas. Junte o alho e refogue mais 1 minuto.",
+          "Junte a massa crua e o caldo. Mexa raspando o fundo. Tampe, aumente o fogo e deixe levantar fervura (demora mais que na dose simples).",
+          "Assim que ferver, abaixe o fogo e cozinhe tampado por 8 a 10 minutos, até a massa ficar al dente. Mexa a cada 2 minutos raspando bem o fundo — a camada de massa é mais funda e queima com facilidade.",
+          "Junte o leite, o queijo creme em pedaços e o pesto. Mexa em fogo médio até derreter. Acrescente o parmesão.",
+          "Se for usar, junte o espinafre e o tomate seco, mexendo até o espinafre murchar. Tire do fogo.",
+          "Se ficar mais líquido do que devia, deixe uns minutos sem tampa; se estiver seco, junte caldo quente aos poucos. Finalize com as pimentas."
+        ],
+        notas: [
+          "O frango cozinha junto com a massa no caldo — ao final não pode sobrar nada rosado por dentro (com termômetro: 74°C).",
+          "Mexer raspando o fundo é o passo que não dá para pular na dose dupla: é onde a massa queima.",
+          "O tempo de fervura é praticamente o mesmo; o que demora mais é levantar fervura.",
+          "Reaquecendo, junte um respingo de leite para soltar o molho."
+        ]
+      }
+    },
+    en: {
+      titulo: "Creamy Pesto Chicken Pasta",
+      categoria: "Pasta",
+      porcoes: "Serves 4",
+      ingredientes: [
+        "500 g boneless skinless chicken breast",
+        "30 g butter",
+        "2 garlic cloves, minced",
+        "250 g penne pasta (half a packet)",
+        "350 ml chicken broth",
+        "240 ml milk",
+        "100 g cream cheese",
+        "80 g basil pesto (about 4 tbsp)",
+        "30 g grated Parmesan",
+        "Freshly ground black pepper",
+        "1 pinch crushed red pepper flakes",
+        "Optional:",
+        "90 g fresh spinach",
+        "30 g sun-dried tomatoes, sliced"
+      ],
+      preparo: [
+        "Cut the chicken into pieces about 2.5 cm.",
+        "Melt the butter in a wide, deep pan over medium heat. Add the chicken and cook until lightly browned. Add the garlic and sauté 1 minute more.",
+        "Add the uncooked pasta and the broth. Stir, scraping the bottom to loosen the browned bits. Cover, raise the heat, and bring to a boil.",
+        "Once boiling, stir the pasta, lower the heat, and simmer covered for about 8 minutes, until the pasta is al dente and most of the broth is absorbed. Stir every 2 minutes, replacing the lid each time.",
+        "Add the milk, the cream cheese in chunks, and the pesto. Stir over medium heat until the cream cheese melts. Add the Parmesan and stir to combine.",
+        "If using, add the spinach and sun-dried tomatoes now, stirring until the spinach wilts. Remove from the heat.",
+        "Finish with freshly ground black pepper and the red pepper flakes. Serve right away."
+      ],
+      notas: [
+        "The chicken cooks with the pasta in the broth — nothing should be pink inside at the end (with a thermometer: 74°C).",
+        "Stirring every 2 minutes isn't fussiness: the pasta cooks in little liquid and sticks to the bottom if left alone.",
+        "Cream cheese melts better cut into chunks and left out of the fridge for a few minutes.",
+        "If the pasta gets too dry before it's cooked, add a little more hot broth.",
+        "This is best the day it's made. When reheating, add a splash of milk to loosen the sauce."
+      ],
+      dobro: {
+        porcoes: "Serves 8",
+        rotulo: "Serves 8",
+        ingredientes: [
+          "1 kg boneless skinless chicken breast",
+          "60 g butter",
+          "4 garlic cloves, minced",
+          "500 g penne pasta (1 packet)",
+          "700 ml chicken broth",
+          "480 ml milk",
+          "200 g cream cheese (1 tub)",
+          "160 g basil pesto",
+          "60 g grated Parmesan",
+          "Freshly ground black pepper",
+          "2 pinches crushed red pepper flakes",
+          "Optional:",
+          "180 g fresh spinach",
+          "60 g sun-dried tomatoes, sliced"
+        ],
+        preparo: [
+          "Cut the chicken into pieces about 2.5 cm. Use the widest, deepest pot you have (about 28–30 cm, 5 litres) — a small pan won't handle double the pasta.",
+          "Melt the butter over medium heat and brown the chicken. If the pot is crowded, do it in two batches. Add the garlic and sauté 1 minute more.",
+          "Add the uncooked pasta and the broth. Stir, scraping the bottom. Cover, raise the heat, and bring to a boil (this takes longer than the single batch).",
+          "Once boiling, lower the heat and simmer covered for 8 to 10 minutes, until the pasta is al dente. Stir every 2 minutes, scraping the bottom well — the layer of pasta is deeper and scorches easily.",
+          "Add the milk, the cream cheese in chunks, and the pesto. Stir over medium heat until melted. Add the Parmesan.",
+          "If using, add the spinach and sun-dried tomatoes, stirring until the spinach wilts. Remove from the heat.",
+          "If it's looser than it should be, leave it uncovered a few minutes; if it's dry, add hot broth a little at a time. Finish with the peppers."
+        ],
+        notas: [
+          "The chicken cooks with the pasta in the broth — nothing should be pink inside at the end (with a thermometer: 74°C).",
+          "Scraping the bottom as you stir is the step you can't skip when doubling: that's where the pasta burns.",
+          "The simmering time is much the same; what takes longer is coming to a boil.",
+          "When reheating, add a splash of milk to loosen the sauce."
+        ]
+      }
+    }
+  },
+  {
+    id: "torta-salgada-ovos-forno",
+    tempo: "55min",
+    fonte: "https://theproteinchef.co/healthy-breakfast-casserole-recipe/",
+    pt: {
+      titulo: "Torta de Ovos no Forno",
+      categoria: "Café da manhã",
+      porcoes: "6 porções",
+      ingredientes: [
+        "6 ovos grandes",
+        "100 g de queijo cheddar ralado",
+        "200 g de iogurte grego natural (sem açúcar)",
+        "500 g de carne já cozida à sua escolha: fiambre em cubos, carne picada, peru ou linguiça",
+        "Sal a gosto",
+        "Pimenta-do-reino a gosto",
+        "Opcional:",
+        "50 g de espinafre fresco (nas lojas: \"espinafres\")",
+        "½ cebola branca picada",
+        "3 pimentões de cores variadas, picados (nas lojas: \"pimentos\")"
+      ],
+      preparo: [
+        "Preaqueça o forno a 180°C.",
+        "Pique os legumes.",
+        "Se a carne ainda estiver crua, cozinhe ou doure antes — tudo entra no forno já cozido.",
+        "Numa tigela grande, junte os ovos, o queijo, o iogurte, a carne, os legumes, o sal e a pimenta.",
+        "Misture bem até ficar uniforme.",
+        "Unte uma travessa de uns 2 litros (aprox. 20 × 20 cm) com spray ou um fio de azeite.",
+        "Despeje a mistura na travessa.",
+        "Asse por 45 a 50 minutos, até as bordas dourarem e o centro ficar firme — ao balançar a travessa, o meio quase não treme. Uma faca espetada no centro sai limpa (com termômetro: 71°C).",
+        "Deixe descansar 10 minutos antes de cortar em 6 pedaços."
+      ],
+      notas: [
+        "Esta receita aceita quase tudo: use os legumes que tiver em casa ou que estiverem bons na feira. Brócolis, courgette (abobrinha), cogumelos, tomate, alho-francês (alho-poró), couve-flor, batata já cozida — tudo funciona. A regra é uma só: uns 300 g de legumes no total, e legumes que soltam muita água (courgette, cogumelos, tomate) devem ser refogados antes, senão a torta fica aguada.",
+        "A carne precisa entrar já cozida: o tempo de forno é para firmar os ovos, não para cozinhar carne crua.",
+        "Nomes em Portugal: \"carne moída\" é carne picada, \"pimentão\" é pimento, e o presunto cozido chama-se fiambre (o \"presunto\" de lá é o curado).",
+        "O iogurte tem que ser natural, sem açúcar — é ele que deixa a torta cremosa.",
+        "Ótima para a semana: 3 a 4 dias na geladeira em pote fechado. Também congela bem em pedaços; descongele na geladeira de um dia para o outro.",
+        "Reaqueça no micro-ondas por 1 a 2 minutos, ou no forno."
+      ]
+    },
+    en: {
+      titulo: "Breakfast Egg Casserole",
+      categoria: "Breakfast",
+      porcoes: "Serves 6",
+      ingredientes: [
+        "6 large eggs",
+        "100 g grated cheddar",
+        "200 g plain Greek yogurt (unsweetened)",
+        "500 g cooked protein of your choice: diced ham, ground beef, turkey, or sausage",
+        "Salt to taste",
+        "Black pepper to taste",
+        "Optional:",
+        "50 g fresh spinach",
+        "½ white onion, chopped",
+        "3 bell peppers, various colors, chopped"
+      ],
+      preparo: [
+        "Preheat the oven to 180°C.",
+        "Chop the vegetables.",
+        "If the meat is still raw, cook or brown it first — everything goes into the oven already cooked.",
+        "In a large bowl, combine the eggs, cheese, yogurt, meat, vegetables, salt, and pepper.",
+        "Mix thoroughly until even.",
+        "Grease a 2-litre baking dish (about 20 × 20 cm) with spray or a drizzle of oil.",
+        "Pour the mixture into the dish.",
+        "Bake for 45 to 50 minutes, until the edges brown and the center is set — the middle barely jiggles when you shake the dish. A knife in the center comes out clean (with a thermometer: 71°C).",
+        "Let it rest 10 minutes before cutting into 6 pieces."
+      ],
+      notas: [
+        "This one takes almost anything: use whatever vegetables you have or whatever looks good at the market. Broccoli, courgette, mushrooms, tomato, leek, cauliflower, already-cooked potato — all work. One rule: about 300 g of vegetables total, and anything watery (courgette, mushrooms, tomato) should be sautéed first or the casserole goes soggy.",
+        "The meat has to go in already cooked: the oven time sets the eggs, it doesn't cook raw meat.",
+        "Portuguese shop names: ground beef is \"carne picada\", bell peppers are \"pimentos\", and cooked deli ham is \"fiambre\" (\"presunto\" there means cured ham).",
+        "The yogurt must be plain and unsweetened — it's what makes the casserole creamy.",
+        "Great for the week: 3–4 days in the fridge in an airtight container. It also freezes well in pieces; thaw overnight in the fridge.",
+        "Reheat in the microwave for 1–2 minutes, or in the oven."
+      ]
+    }
+  }
+];
+
+const UI = {
+  pt: {
+    subtitle: "da nossa cozinha",
+    search: "Buscar receita ou ingrediente…",
+    all: "Todas",
+    back: "← Todas as receitas",
+    ingredients: "Ingredientes",
+    method: "Modo de preparo",
+    notes: "Notas",
+    empty: "Nenhuma receita encontrada.",
+    footer: (n) => `${n} receita${n > 1 ? "s" : ""} · atualizado em 26 de julho de 2026`,
+    otherName: "Nome em inglês",
+    copy: "Copiar",
+    copied: "Copiado!",
+    source: "Receita original",
+    batchLabel: "Quantidade"
+  },
+  en: {
+    subtitle: "from our kitchen",
+    search: "Search recipes or ingredients…",
+    all: "All",
+    back: "← All recipes",
+    ingredients: "Ingredients",
+    method: "Method",
+    notes: "Notes",
+    empty: "No recipes found.",
+    footer: (n) => `${n} recipe${n > 1 ? "s" : ""} · updated July 26, 2026`,
+    otherName: "Portuguese name — for WhatsApp",
+    copy: "Copy",
+    copied: "Copied!",
+    source: "Original recipe",
+    batchLabel: "Batch size"
+  }
+};
+
+const $ = (id) => document.getElementById(id);
+let lang = "pt";
+let batch = "normal";               // "normal" | "dobro", reset per recipe
+let categoria = "Todas";            // filter key, always the PT category name
+const checked = {};                 // recipe id -> Set of checked ingredient indices
+try { if (localStorage.getItem("lang") === "en") lang = "en"; } catch (e) {}
+
+function categorias() {
+  return ["Todas", ...new Set(RECIPES.map(r => r.pt.categoria))];
+}
+function catLabel(ptCat) {
+  if (ptCat === "Todas") return UI[lang].all;
+  if (lang === "pt") return ptCat;
+  const r = RECIPES.find(x => x.pt.categoria === ptCat);
+  return r ? r.en.categoria : ptCat;
+}
+
+function renderChips() {
+  $("chips").innerHTML = categorias().map(c =>
+    `<button class="chip" aria-pressed="${c === categoria}" data-cat="${c}">${catLabel(c)}</button>`
+  ).join("");
+}
+
+function renderCards() {
+  const q = $("search").value.trim().toLowerCase();
+  const vis = RECIPES.filter(r => {
+    const okCat = categoria === "Todas" || r.pt.categoria === categoria;
+    const hay = (r.pt.titulo + " " + r.en.titulo + " "
+      + r.pt.ingredientes.join(" ") + " " + r.en.ingredientes.join(" ")).toLowerCase();
+    return okCat && (!q || hay.includes(q));
+  });
+  $("cards").innerHTML = vis.map(r => {
+    const L = r[lang];
+    const alt = lang === "en" ? `<p class="alt-title">${r.pt.titulo}</p>` : "";
+    return `
+    <a class="card" href="#${r.id}">
+      <h2>${L.titulo}</h2>
+      ${alt}
+      <div class="meta">
+        <span class="tag">${L.categoria}</span>
+        <span>${r.tempo}</span>
+        <span>${L.porcoes}</span>
+      </div>
+    </a>`;
+  }).join("");
+  $("empty").classList.toggle("hidden", vis.length > 0);
+  $("foot-list").textContent = UI[lang].footer(RECIPES.length);
+}
+
+function renderRecipe(r) {
+  const base = r[lang];
+  /* Doubled versions are authored by hand, not computed — amounts are rounded to
+     shoppable numbers and the method changes (batches, pans, timing) are real. */
+  const L = (batch === "dobro" && base.dobro) ? { ...base, ...base.dobro } : base;
+  const done = checked[r.id] || (checked[r.id] = new Set());
+  const ptNameBox = lang === "en" ? `
+    <div class="pt-name">
+      <span class="label">${UI.en.otherName}</span>
+      <span class="name" id="pt-name-text">${r.pt.titulo}</span>
+      <button class="copy" id="copy-pt">${UI.en.copy}</button>
+    </div>` : "";
+  const scaleBox = base.dobro ? `
+    <div class="scale" role="group" aria-label="${UI[lang].batchLabel}">
+      <button data-batch="normal" aria-pressed="${batch === "normal"}">${base.porcoes}</button>
+      <button data-batch="dobro" aria-pressed="${batch === "dobro"}">${base.dobro.rotulo}</button>
+    </div>` : "";
+  const sourceBox = r.fonte ? `
+    <p class="source"><a href="${r.fonte}" target="_blank" rel="noopener noreferrer">${UI[lang].source} ↗</a></p>` : "";
+  $("recipe").innerHTML = `
+    <h1>${L.titulo}</h1>
+    <div class="meta">
+      <span class="tag">${L.categoria}</span>
+      <span>${r.tempo}</span>
+      <span>${L.porcoes}</span>
+    </div>
+    ${scaleBox}
+    ${ptNameBox}
+    ${sourceBox}
+    <h2>${UI[lang].ingredients}</h2>
+    <ul class="ing">
+      ${L.ingredientes.map((i, idx) => i.endsWith(":")
+        ? `<li class="sub">${i.slice(0, -1)}</li>`
+        : `<li tabindex="0" role="checkbox" data-idx="${idx}"
+            class="${done.has(idx) ? "done" : ""}"
+            aria-checked="${done.has(idx)}">${i}</li>`).join("")}
+    </ul>
+    <h2>${UI[lang].method}</h2>
+    <ol class="steps">${L.preparo.map(p => `<li>${p}</li>`).join("")}</ol>
+    ${L.notas && L.notas.length ? `
+      <h2>${UI[lang].notes}</h2>
+      <div class="notes"><ul>${L.notas.map(n => `<li>${n}</li>`).join("")}</ul></div>` : ""}
+  `;
+  $("recipe").querySelectorAll(".scale button").forEach(b => {
+    b.addEventListener("click", () => {
+      if (b.dataset.batch === batch) return;
+      batch = b.dataset.batch;
+      /* Ingredient lists differ between batch sizes, so checkmarks don't carry over. */
+      checked[r.id] = new Set();
+      renderRecipe(r);
+    });
+  });
+  $("recipe").querySelectorAll(".ing li[data-idx]").forEach(li => {
+    const idx = Number(li.dataset.idx);
+    const toggle = () => {
+      done.has(idx) ? done.delete(idx) : done.add(idx);
+      li.classList.toggle("done", done.has(idx));
+      li.setAttribute("aria-checked", done.has(idx));
+    };
+    li.addEventListener("click", toggle);
+    li.addEventListener("keydown", e => {
+      if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); }
+    });
+  });
+  const copyBtn = $("copy-pt");
+  if (copyBtn) copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(r.pt.titulo);
+      copyBtn.textContent = UI.en.copied;
+      setTimeout(() => { copyBtn.textContent = UI.en.copy; }, 1600);
+    } catch (e) {
+      /* Clipboard blocked: select the name so a long-press copy works */
+      const range = document.createRange();
+      range.selectNodeContents($("pt-name-text"));
+      const sel = getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  });
+}
+
+function currentRecipe() {
+  const id = location.hash.replace("#", "");
+  return RECIPES.find(x => x.id === id) || null;
+}
+
+function renderAll() {
+  $("subtitle").textContent = UI[lang].subtitle;
+  $("search").placeholder = UI[lang].search;
+  $("back").textContent = UI[lang].back;
+  $("empty").textContent = UI[lang].empty;
+  $("lang-pt").setAttribute("aria-pressed", lang === "pt");
+  $("lang-en").setAttribute("aria-pressed", lang === "en");
+  renderChips();
+  renderCards();
+  const r = currentRecipe();
+  if (r) renderRecipe(r);
+}
+
+function setLang(l) {
+  if (l === lang) return;
+  lang = l;
+  try { localStorage.setItem("lang", lang); } catch (e) {}
+  renderAll();   /* re-renders in place: same view, filters, and checked items */
+}
+
+let lastId = null;
+function route() {
+  const r = currentRecipe();
+  if (r && r.id !== lastId) batch = "normal";   /* each recipe opens at its normal size */
+  lastId = r ? r.id : null;
+  $("view-list").classList.toggle("hidden", !!r);
+  $("view-recipe").classList.toggle("hidden", !r);
+  if (r) { renderRecipe(r); window.scrollTo(0, 0); }
+  else renderCards();
+}
+
+$("search").addEventListener("input", renderCards);
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  categoria = b.dataset.cat;
+  renderChips();
+  renderCards();
+});
+$("lang-pt").addEventListener("click", () => setLang("pt"));
+$("lang-en").addEventListener("click", () => setLang("en"));
+window.addEventListener("hashchange", route);
+
+renderAll();
+route();
+</script>
