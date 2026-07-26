@@ -811,7 +811,7 @@ const UI = {
 
 const $ = (id) => document.getElementById(id);
 let lang = "pt";
-let batch = "normal";               // "normal" | "dobro", reset per recipe
+let batch = "normal";               // "normal" | "dobro"; set per recipe in route()
 let categoria = "Todas";            // filter key, always the PT category name
 const checked = {};                 // recipe id -> Set of checked ingredient indices
 try { if (localStorage.getItem("lang") === "en") lang = "en"; } catch (e) {}
@@ -843,6 +843,8 @@ function renderCards() {
   $("cards").innerHTML = vis.map(r => {
     const L = r[lang];
     const alt = lang === "en" ? `<p class="alt-title">${r.pt.titulo}</p>` : "";
+    /* Show the size the recipe actually opens at, so the card doesn't say 4 and the page 8. */
+    const porcoes = L.dobro ? L.dobro.porcoes : L.porcoes;
     return `
     <a class="card" href="#${r.id}">
       <h2>${L.titulo}</h2>
@@ -850,7 +852,7 @@ function renderCards() {
       <div class="meta">
         <span class="tag">${L.categoria}</span>
         <span>${r.tempo}</span>
-        <span>${L.porcoes}</span>
+        <span>${porcoes}</span>
       </div>
     </a>`;
   }).join("");
@@ -967,7 +969,8 @@ function setLang(l) {
 let lastId = null;
 function route() {
   const r = currentRecipe();
-  if (r && r.id !== lastId) batch = "normal";   /* each recipe opens at its normal size */
+  /* She cooks in bulk, so a recipe that has a doubled version opens at that size. */
+  if (r && r.id !== lastId) batch = r[lang].dobro ? "dobro" : "normal";
   lastId = r ? r.id : null;
   $("view-list").classList.toggle("hidden", !!r);
   $("view-recipe").classList.toggle("hidden", !r);
