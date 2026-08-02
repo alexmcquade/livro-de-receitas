@@ -222,6 +222,16 @@
   .source { margin: 0 0 18px; font-size: 0.9rem; }
   .source a { color: var(--accent); }
 
+  .photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 0 0 18px;
+    background: var(--accent-soft);
+  }
+
   .pt-name {
     display: flex;
     align-items: center;
@@ -393,6 +403,7 @@ const RECIPES = [
     id: "massa-cremosa-pesto-frango",
     tempo: "25min",
     fonte: "https://www.budgetbytes.com/one-pot-creamy-pesto-chicken-pasta/",
+    foto: null,
     pt: {
       titulo: "Massa Cremosa de Pesto com Frango",
       categoria: "Massas",
@@ -542,6 +553,7 @@ const RECIPES = [
     id: "arroz-com-feijao-vermelho",
     tempo: "30min",
     fonte: "https://www.foodnetwork.com/",
+    foto: null,
     pt: {
       titulo: "Arroz com Feijão Vermelho",
       categoria: "Pratos principais",
@@ -607,6 +619,136 @@ const RECIPES = [
         "The original doesn't say whether the beans are drained; this version drains them.",
         "Keeps 3–4 days in the fridge in an airtight container."
       ]
+    }
+  },
+  {
+    id: "frango-batatas-forno-feta",
+    tempo: "45min",
+    fonte: "https://cooking.nytimes.com/recipes/1020726-sheet-pan-chicken-and-potatoes-with-feta-lemon-and-dill",
+    foto: null,
+    pt: {
+      titulo: "Frango e Batatas no Forno com Feta, Limão e Endro",
+      categoria: "Pratos principais",
+      porcoes: "4 porções",
+      ingredientes: [
+        "3 colheres de sopa (45 ml) de azeite",
+        "2 colheres de sopa (30 ml) de suco de limão (de meio limão)",
+        "1 dente de alho picado",
+        "½ colher de chá (1 g) de orégano seco",
+        "¾ de colher de chá (4,5 g) de sal fino, no total",
+        "¾ de colher de chá (1,5 g) de pimenta-do-reino moída, no total",
+        "700 a 900 g de sobrecoxas de frango com osso e pele, 4 a 6 peças (nas lojas: \"coxas de frango\")",
+        "500 g de batatas pequenas cortadas em cubos",
+        "60 g de queijo feta esfarelado",
+        "2 colheres de sopa (6 g) de endro fresco picado (nas lojas: \"aneto\")"
+      ],
+      preparo: [
+        "Numa tigela, misture 2 colheres de sopa (30 ml) de azeite, 1 colher de sopa (15 ml) de suco de limão, o alho, o orégano, ½ colher de chá (3 g) de sal e ½ colher de chá (1 g) de pimenta. Junte as sobrecoxas e misture bem para cobrir. Deixe marinar uns 30 minutos fora da geladeira, ou tampado na geladeira.",
+        "Preaqueça o forno a 220°C. Numa assadeira, regue as batatas com a colher de sopa (15 ml) de azeite restante e tempere com ¼ de colher de chá (1,5 g) de sal e ¼ de colher de chá (0,5 g) de pimenta. Misture bem e empurre as batatas para um lado da assadeira.",
+        "Seque as sobrecoxas com papel-toalha e coloque do outro lado da assadeira, bem separadas umas das outras.",
+        "Asse por 15 minutos. Mexa as batatas e volte tudo ao forno por mais 15 a 25 minutos, até o frango estar cozido, a pele dourada e as batatas macias. O tempo varia com o tamanho das peças (com termômetro: 74°C na parte mais grossa, junto ao osso).",
+        "Se as batatas ainda não estiverem macias, tire o frango para um prato para descansar e devolva as batatas ao forno por mais 5 a 10 minutos.",
+        "Passe o frango e as batatas para uma travessa e regue com a colher de sopa (15 ml) de suco de limão restante. Espalhe o feta e o endro por cima das batatas e finalize com sal e pimenta."
+      ],
+      notas: [
+        "Sal: a receita original usa sal kosher, que é grosso e ocupa mais espaço na colher. Os valores aqui já estão convertidos para sal fino comum — por isso as colheres parecem menores que no original. Se usar sal grosso, use o dobro do volume.",
+        "Nomes em Portugal: o endro é vendido como \"aneto\", as sobrecoxas aparecem como \"coxas de frango\" (com osso e pele), e o limão é o amarelo comum.",
+        "Seque bem o frango antes de assar e deixe espaço entre as peças: é isso que faz a pele dourar em vez de cozinhar no vapor.",
+        "Dura 3 a 4 dias na geladeira. As batatas amolecem um pouco ao reaquecer; no forno ficam melhores que no micro-ondas."
+      ],
+      dobro: {
+        porcoes: "8 porções",
+        rotulo: "8 porções",
+        ingredientes: [
+          "6 colheres de sopa (90 ml) de azeite",
+          "4 colheres de sopa (60 ml) de suco de limão (de 1 limão)",
+          "2 dentes de alho picados",
+          "1 colher de chá (2 g) de orégano seco",
+          "1½ colher de chá (9 g) de sal fino, no total",
+          "1½ colher de chá (3 g) de pimenta-do-reino moída, no total",
+          "1,4 a 1,8 kg de sobrecoxas de frango com osso e pele, 8 a 12 peças (nas lojas: \"coxas de frango\")",
+          "1 kg de batatas pequenas cortadas em cubos",
+          "120 g de queijo feta esfarelado",
+          "4 colheres de sopa (12 g) de endro fresco picado (nas lojas: \"aneto\")"
+        ],
+        preparo: [
+          "Numa tigela grande, misture 4 colheres de sopa (60 ml) de azeite, 2 colheres de sopa (30 ml) de suco de limão, o alho, o orégano, 1 colher de chá (6 g) de sal e 1 colher de chá (2 g) de pimenta. Junte as sobrecoxas e misture bem. Deixe marinar uns 30 minutos fora da geladeira, ou tampado na geladeira.",
+          "Preaqueça o forno a 220°C. Divida as batatas entre duas assadeiras, regue com as 2 colheres de sopa (30 ml) de azeite restantes e tempere com ½ colher de chá (3 g) de sal e ½ colher de chá (1 g) de pimenta no total. Misture e empurre as batatas para um lado de cada assadeira.",
+          "Seque as sobrecoxas com papel-toalha e divida entre as duas assadeiras, do outro lado, bem separadas umas das outras. Não amontoe: é melhor usar as duas assadeiras inteiras do que encher uma só.",
+          "Asse as duas assadeiras por 15 minutos. Mexa as batatas, troque a posição das assadeiras no forno e asse por mais 20 a 30 minutos, até o frango estar cozido e a pele dourada.",
+          "Confira o ponto do frango em cada assadeira separadamente — a de baixo costuma demorar um pouco mais (com termômetro: 74°C na parte mais grossa, junto ao osso).",
+          "Se as batatas ainda não estiverem macias, tire o frango para descansar e devolva as batatas ao forno por mais 5 a 10 minutos.",
+          "Passe tudo para as travessas e regue com as 2 colheres de sopa (30 ml) de suco de limão restantes. Espalhe o feta e o endro e finalize com sal e pimenta."
+        ],
+        notas: [
+          "Dobrar aqui é dobrar as assadeiras, não encher uma: com as peças encostadas o frango solta água e a pele não doura.",
+          "Sal: a receita original usa sal kosher, mais grosso. Os valores aqui já são para sal fino comum.",
+          "Nomes em Portugal: endro é \"aneto\", sobrecoxas são \"coxas de frango\".",
+          "Dura 3 a 4 dias na geladeira. Reaqueça no forno para as batatas não ficarem moles."
+        ]
+      }
+    },
+    en: {
+      titulo: "Sheet-Pan Chicken and Potatoes with Feta, Lemon and Dill",
+      categoria: "Mains",
+      porcoes: "Serves 4",
+      ingredientes: [
+        "3 tbsp (45 ml) olive oil",
+        "2 tbsp (30 ml) lemon juice (from about half a lemon)",
+        "1 garlic clove, minced",
+        "½ tsp (1 g) dried oregano",
+        "¾ tsp (4.5 g) fine salt, total",
+        "¾ tsp (1.5 g) ground black pepper, total",
+        "700–900 g small bone-in, skin-on chicken thighs (4 to 6)",
+        "500 g small potatoes, cut into small pieces",
+        "60 g feta cheese, crumbled",
+        "2 tbsp (6 g) chopped fresh dill"
+      ],
+      preparo: [
+        "In a bowl, whisk 2 tbsp (30 ml) olive oil with 1 tbsp (15 ml) lemon juice, the garlic, oregano, ½ tsp (3 g) salt, and ½ tsp (1 g) pepper. Add the chicken thighs and toss to coat. Marinate about 30 minutes at room temperature, or covered in the fridge.",
+        "Heat the oven to 220°C. On a sheet pan, drizzle the diced potatoes with the remaining 1 tbsp (15 ml) oil and season with ¼ tsp (1.5 g) salt and ¼ tsp (0.5 g) pepper. Toss well and move them to one side of the pan.",
+        "Pat the chicken thighs dry and place them on the other side of the pan, evenly spaced.",
+        "Roast for 15 minutes. Toss the potatoes, then return everything to the oven for 15 to 25 minutes more, until the chicken is cooked through, the skin is golden, and the potatoes are tender. Timing varies with the size of the thighs (with a thermometer: 74°C at the thickest part, near the bone).",
+        "If the potatoes aren't quite tender, move the chicken to a plate to rest and return the potatoes to the oven for another 5 to 10 minutes.",
+        "Transfer the chicken and potatoes to a platter and sprinkle with the remaining 1 tbsp (15 ml) lemon juice. Scatter the feta and dill over the potatoes and finish with salt and pepper."
+      ],
+      notas: [
+        "Salt: the original uses kosher salt, which is coarse and takes up more room in a spoon. The amounts here are already converted to ordinary fine salt — that's why the spoon measures look smaller than the original's. With coarse salt, use double the volume.",
+        "Portuguese shop names: dill is sold as \"aneto\", and bone-in skin-on thighs appear as \"coxas de frango\".",
+        "Pat the chicken dry and leave space between the pieces: that's what makes the skin brown instead of steam.",
+        "Keeps 3–4 days in the fridge. The potatoes soften on reheating; the oven treats them better than the microwave."
+      ],
+      dobro: {
+        porcoes: "Serves 8",
+        rotulo: "Serves 8",
+        ingredientes: [
+          "6 tbsp (90 ml) olive oil",
+          "4 tbsp (60 ml) lemon juice (from 1 lemon)",
+          "2 garlic cloves, minced",
+          "1 tsp (2 g) dried oregano",
+          "1½ tsp (9 g) fine salt, total",
+          "1½ tsp (3 g) ground black pepper, total",
+          "1.4–1.8 kg small bone-in, skin-on chicken thighs (8 to 12)",
+          "1 kg small potatoes, cut into small pieces",
+          "120 g feta cheese, crumbled",
+          "4 tbsp (12 g) chopped fresh dill"
+        ],
+        preparo: [
+          "In a large bowl, whisk 4 tbsp (60 ml) olive oil with 2 tbsp (30 ml) lemon juice, the garlic, oregano, 1 tsp (6 g) salt, and 1 tsp (2 g) pepper. Add the chicken and toss to coat. Marinate about 30 minutes at room temperature, or covered in the fridge.",
+          "Heat the oven to 220°C. Divide the potatoes between two sheet pans, drizzle with the remaining 2 tbsp (30 ml) oil, and season with ½ tsp (3 g) salt and ½ tsp (1 g) pepper in total. Toss and move the potatoes to one side of each pan.",
+          "Pat the chicken dry and divide it between the two pans, on the other side, evenly spaced. Don't crowd them: better to use both pans fully than to fill one.",
+          "Roast both pans for 15 minutes. Toss the potatoes, swap the pans' positions in the oven, and roast 20 to 30 minutes more, until the chicken is cooked through and the skin is golden.",
+          "Check the chicken on each pan separately — the lower one usually takes a little longer (with a thermometer: 74°C at the thickest part, near the bone).",
+          "If the potatoes aren't tender yet, move the chicken to rest and return the potatoes to the oven for another 5 to 10 minutes.",
+          "Transfer everything to platters and sprinkle with the remaining 2 tbsp (30 ml) lemon juice. Scatter the feta and dill and finish with salt and pepper."
+        ],
+        notas: [
+          "Doubling here means two pans, not one full one: with the pieces touching, the chicken steams and the skin won't brown.",
+          "Salt: the original uses coarser kosher salt. These amounts are already for ordinary fine salt.",
+          "Portuguese shop names: dill is \"aneto\", thighs are \"coxas de frango\".",
+          "Keeps 3–4 days in the fridge. Reheat in the oven so the potatoes don't go soft."
+        ]
+      }
     }
   }
 ];
@@ -716,6 +858,9 @@ function renderRecipe(r) {
     </div>` : "";
   const sourceBox = r.fonte ? `
     <p class="source"><a href="${r.fonte}" target="_blank" rel="noopener noreferrer">${UI[lang].source} ↗</a></p>` : "";
+  /* Optional photo of the finished dish — a file in fotos/, ours to publish. */
+  const photoBox = r.foto ? `
+    <img class="photo" src="${r.foto}" alt="${L.titulo}" loading="lazy">` : "";
   $("recipe").innerHTML = `
     <h1>${L.titulo}</h1>
     <div class="meta">
@@ -723,6 +868,7 @@ function renderRecipe(r) {
       <span>${r.tempo}</span>
       <span>${L.porcoes}</span>
     </div>
+    ${photoBox}
     ${scaleBox}
     ${ptNameBox}
     ${sourceBox}

@@ -121,6 +121,17 @@ In the page each language block carries a `dobro` object (`porcoes`, `rotulo`,
 `ingredientes`, `preparo`, `notas`) that fully overrides the normal version; the
 recipe file gets a matching "Dose dupla" section.
 
+## Photos
+
+Each recipe entry has a `foto` field. Set it to a path like `fotos/frango-feta.jpg`
+and the page shows the image under the title; leave it `null` and nothing renders.
+Put image files in `fotos/` — resize to roughly 1200px wide so the page stays fast
+on mobile data.
+
+**Only use photos we own** — one she or we took of the finished dish. Don't copy
+photos from the source sites; those are the publisher's and this site is public.
+The "Receita original ↗" link is there for the source's own photos.
+
 ## Linking to the original
 
 Each recipe entry has a `fonte` field with the source URL (`null` if there isn't
