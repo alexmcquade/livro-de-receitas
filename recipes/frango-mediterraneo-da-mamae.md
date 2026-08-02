@@ -34,7 +34,6 @@ adicionada: 2026-08-02
 
 ## Notas
 - Sirva sobre massa cozida.
-- Com 8 a 10 bifes, doure em 2 ou 3 levas — frigideira lotada cozinha no vapor e o frango não doura.
 - Nomes em Portugal: os bifes finos de frango são vendidos como **bifes de peito de frango**, a salsinha como **salsa**, e o limão é o amarelo comum.
 - O vinho é para deglaçar: qualquer vinho branco seco que você beberia serve, não precisa ser caro.
 - Dura 3 a 4 dias na geladeira em pote fechado.
