@@ -2,7 +2,7 @@
 id: arroz-com-feijao-vermelho
 titulo: Arroz com Feijão Vermelho
 titulo_original: Red Beans and Rice
-categoria: Acompanhamentos
+categoria: Pratos principais
 porcoes: 8
 tempo: 30min
 fonte: https://www.foodnetwork.com/
@@ -21,7 +21,6 @@ adicionada: 2026-08-02
 - ¼ de colher de chá (0,5 g) de pimenta-do-reino moída
 - 2 colheres de sopa (30 ml) de molho de pimenta (tipo piri-piri)
 - ½ colher de chá (1 g) de pimenta caiena
-- 600 ml de caldo de galinha
 - 200 g de arroz branco
 - 1 colher de sopa (15 g) de manteiga
 - 1 colher de sopa (3 g) de coentro fresco picado
@@ -29,9 +28,8 @@ adicionada: 2026-08-02
 ## Modo de preparo
 1. Aqueça o azeite numa panela grande em fogo médio-alto. Refogue o alho, a cebola, o salsão e o pimentão até ficarem macios.
 2. Junte o feijão escorrido, a cebola em pó, o sal, a pimenta-do-reino, a pimenta caiena e o molho de pimenta. Abaixe o fogo e deixe cozinhar devagar enquanto você faz o arroz.
-3. Numa outra panela, leve o caldo de galinha para ferver e junte o arroz e a manteiga. Deixe voltar a ferver, abaixe o fogo, tampe e cozinhe por 20 minutos sem tirar a tampa.
-4. Tire do fogo e deixe descansar 5 minutos, ainda tampado.
-5. Misture delicadamente o arroz com o feijão e passe para uma travessa. Finalize com o coentro.
+3. Cozinhe o arroz à parte, do seu jeito. Junte a manteiga no arroz ainda quente.
+4. Misture delicadamente o arroz com o feijão e passe para uma travessa. Finalize com o coentro.
 
 ## Notas
 - Nomes em Portugal: o feijão vermelho é vendido como **feijão encarnado**, o pimentão é **pimento** e o salsão é **aipo**.
