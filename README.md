@@ -53,7 +53,18 @@ manually re-pointing the share on every update.
   - Common shelf equivalents: heavy cream → natas para bater (35%), creme de leite
     → natas, soy sauce → molho de soja (shoyu understood), cornstarch → amido de
     milho / Maizena, vanilla extract → aroma or extrato de baunilha.
-- Spoons stay spoons: tsp → colher de chá, tbsp → colher de sopa.
+- **Spoons stay spoons, but always show the weight too.** tsp → colher de chá,
+  tbsp → colher de sopa, each followed by the metric amount in parentheses so she
+  can use a scale or a measuring jug instead of hunting for the right spoon:
+  `1 colher de chá (6 g) de sal`, `2 colheres de sopa (30 ml) de molho de pimenta`.
+  Use **ml for liquids** (oil, sauces, extracts) and **g for dry** (salt, spices,
+  butter, herbs). Reference values:
+  - 1 colher de sopa líquida = 15 ml · 1 colher de chá líquida = 5 ml
+  - sal: 1 colher de chá = 6 g · manteiga: 1 colher de sopa = 15 g
+  - especiarias em pó (cebola em pó, páprica, caiena): 1 colher de chá ≈ 2–3 g
+  - pimenta-do-reino moída: 1 colher de chá = 2 g (¼ = 0,5 g)
+  - ervas frescas picadas: 1 colher de sopa ≈ 3 g
+  - açúcar: 1 colher de sopa = 12 g · farinha: 1 colher de sopa = 8 g
 
 ## Structure
 
