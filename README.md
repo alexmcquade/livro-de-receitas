@@ -121,6 +121,13 @@ In the page each language block carries a `dobro` object (`porcoes`, `rotulo`,
 `ingredientes`, `preparo`, `notas`) that fully overrides the normal version; the
 recipe file gets a matching "Dose dupla" section.
 
+## Kitchen equipment
+
+The household has **no ovenproof skillet**, so recipes that brown on the hob and
+finish in the oven in the same pan don't work as written. Either adapt them (finish
+covered on the stovetop over medium-low heat) or flag it before adding the recipe.
+Sheet pans, roasting trays and baking dishes are all fine.
+
 ## Photos
 
 Each recipe entry has a `foto` field. Set it to a path like `fotos/frango-feta.jpg`
