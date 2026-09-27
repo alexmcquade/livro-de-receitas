@@ -403,6 +403,7 @@ const RECIPES = [
     id: "massa-cremosa-pesto-frango",
     tempo: "25min",
     fonte: "https://www.budgetbytes.com/one-pot-creamy-pesto-chicken-pasta/",
+    adicionada: "2026-07-26",
     foto: null,
     pt: {
       titulo: "Massa Cremosa de Pesto com Frango",
@@ -553,6 +554,7 @@ const RECIPES = [
     id: "arroz-com-feijao-vermelho",
     tempo: "30min",
     fonte: "https://www.foodnetwork.com/",
+    adicionada: "2026-08-02",
     foto: null,
     pt: {
       titulo: "Arroz com Feijão Vermelho",
@@ -625,6 +627,7 @@ const RECIPES = [
     id: "frango-batatas-forno-feta",
     tempo: "45min",
     fonte: "https://cooking.nytimes.com/recipes/1020726-sheet-pan-chicken-and-potatoes-with-feta-lemon-and-dill",
+    adicionada: "2026-08-02",
     foto: null,
     pt: {
       titulo: "Frango e Batatas no Forno com Feta, Limão e Endro",
@@ -755,6 +758,7 @@ const RECIPES = [
     id: "frango-mediterraneo-da-mamae",
     tempo: "1h",
     fonte: null,
+    adicionada: "2026-08-02",
     foto: null,
     pt: {
       titulo: "Frango Mediterrâneo da Mamãe",
@@ -829,6 +833,7 @@ const RECIPES = [
     id: "frango-batatas-molho-iogurte",
     tempo: "1h",
     fonte: "https://cooking.nytimes.com/",
+    adicionada: "2026-08-09",
     foto: null,
     pt: {
       titulo: "Frango e Batatas no Forno com Molho de Iogurte e Alho",
@@ -971,6 +976,7 @@ const RECIPES = [
     id: "frango-piccata",
     tempo: "25min",
     fonte: "https://cooking.nytimes.com/recipes/1019883-chicken-piccata",
+    adicionada: "2026-09-06",
     foto: null,
     pt: {
       titulo: "Frango ao Molho de Limão e Alcaparras",
@@ -1103,6 +1109,7 @@ const RECIPES = [
     id: "costeletas-porco-ervas",
     tempo: "40min",
     fonte: "https://cooking.nytimes.com/recipes/1024400-herb-marinated-pork-chops",
+    adicionada: "2026-09-06",
     foto: null,
     pt: {
       titulo: "Bifes de Lombo de Porco Marinados nas Ervas",
@@ -1227,6 +1234,7 @@ const RECIPES = [
     id: "ragu-carne-moida",
     tempo: "1h45",
     fonte: null,
+    adicionada: "2026-09-06",
     foto: null,
     pt: {
       titulo: "Ragu de Carne Moída",
@@ -1303,6 +1311,7 @@ const RECIPES = [
     id: "salada-mexicana-de-feijao",
     tempo: "1h30",
     fonte: "https://www.allrecipes.com/",
+    adicionada: "2026-09-27",
     foto: null,
     pt: {
       titulo: "Salada Mexicana de Feijão",
@@ -1385,6 +1394,7 @@ const RECIPES = [
     id: "frango-toscano-cremoso",
     tempo: "40min",
     fonte: "https://cooking.nytimes.com/",
+    adicionada: "2026-09-27",
     foto: null,
     pt: {
       titulo: "Frango Toscano Cremoso",
@@ -1568,6 +1578,13 @@ const UI = {
   }
 };
 
+/* Recipes are listed newest first. `adicionada` comes from the recipe file's
+   frontmatter; entries added on the same day fall back to array position. */
+const ORDERED = RECIPES
+  .map((r, i) => ({ r, i }))
+  .sort((a, b) => (b.r.adicionada || "").localeCompare(a.r.adicionada || "") || b.i - a.i)
+  .map((x) => x.r);
+
 const $ = (id) => document.getElementById(id);
 let lang = "pt";
 let batch = "normal";               // "normal" | "dobro"; set per recipe in route()
@@ -1593,7 +1610,7 @@ function renderChips() {
 
 function renderCards() {
   const q = $("search").value.trim().toLowerCase();
-  const vis = RECIPES.filter(r => {
+  const vis = ORDERED.filter(r => {
     const okCat = categoria === "Todas" || r.pt.categoria === categoria;
     const hay = (r.pt.titulo + " " + r.en.titulo + " "
       + r.pt.ingredientes.join(" ") + " " + r.en.ingredientes.join(" ")).toLowerCase();

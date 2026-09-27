@@ -139,6 +139,15 @@ on mobile data.
 photos from the source sites; those are the publisher's and this site is public.
 The "Receita original ↗" link is there for the source's own photos.
 
+## Ordering
+
+Recipes are listed **newest first**, in both languages. Each entry in the page's
+`RECIPES` array carries an `adicionada: "YYYY-MM-DD"` field copied from the recipe
+file's frontmatter; the page sorts on it and falls back to array position for
+recipes added on the same day. New recipes still get appended to the end of the
+array — the sort puts them at the top. The category chips keep a stable order and
+don't reshuffle when a recipe is added.
+
 ## Linking to the original
 
 Each recipe entry has a `fonte` field with the source URL (`null` if there isn't
