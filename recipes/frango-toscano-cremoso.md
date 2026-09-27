@@ -27,7 +27,7 @@ adicionada: 2026-09-27
 
 ## Modo de preparo
 1. Tempere os dois lados do frango com sal e pimenta.
-2. Aqueça uma frigideira grande em fogo médio e junte o azeite. Doure o frango por uns 4 minutos de cada lado, até ficar dourado mas ainda **não** cozido por dentro. Retire e reserve.
+2. Aqueça uma frigideira grande em fogo médio e junte o azeite. Doure o frango por uns 4 minutos de cada lado, até ficar dourado. Retire e reserve.
 3. Junte a manteiga à frigideira e deixe derreter. Acrescente o tomate-cereja, a cebola, o alho e uma pitada de sal. Cozinhe mexendo por 1 a 2 minutos, até o tomate e a cebola amaciarem e o alho ficar cheiroso.
 4. Junte o caldo, o orégano e o manjericão. Mexa raspando o fundo da frigideira e deixe ferver até o líquido reduzir pela metade, 4 a 5 minutos.
 5. Acrescente o creme de leite, o parmesão e o queijo creme. Mexa até o queijo creme derreter e o molho engrossar, uns 6 minutos.
